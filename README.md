@@ -106,10 +106,10 @@ npm run build
 
 ## 4 Submit issues
 
-Go to the issue site of the repository to submit an issue: TODO: future link[on github.com](https://github.com/mHealth-Prototyp/FHIR-Questionnaires/issues)
+Go to the issue site of the repository to submit an issue: [on github.com](https://github.com/mHealth-Prototyp/Questionnaire/issues)
 
 ## 5 Changelog
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 1.0.0   | 2023-03-21 | Initial version uploaded to this repository |
+| 1.0.0   | 2023-03-22 | Initial version uploaded to this repository |

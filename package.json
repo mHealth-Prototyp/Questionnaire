@@ -1,10 +1,9 @@
 {
   "name": "mhealth-proto-fhir-questionnaire",
   "version": "1.0.0",
-  "description": "A Quasar Project",
+  "description": "A prototype app for demonstrating mHealth use cases on EPD Playground with FHIR Questionnaire centered examples using the FHIR Questionnaire Resource.",
   "productName": "mHealth Proto FHIR-Questionnaire",
   "author": "medinf.i4mi@bfh.ch",
-  "private": true,
   "scripts": {
     "start": "quasar dev",
     "build": "quasar build",
@@ -16,7 +15,7 @@
   "dependencies": {
     "@i4mi/fhir_questionnaire": "^0.2.1",
     "@i4mi/fhir_r4": "^2.1.2",
-    "@i4mi/fhir-questionnaire-renderer": "^1.0.0",
+    "@i4mi/fhir-questionnaire-renderer": "^1.0.1",
     "@i4mi/mhealth-proto-components": "^0.4.2",
     "@quasar/extras": "^1.0.0",
     "@vueuse/core": "^9.10.0",
