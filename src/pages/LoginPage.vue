@@ -1,0 +1,222 @@
+<template>
+  <q-page class="full-width row justify-center content-start">
+    <div
+      class="col-12 col-md-4"
+      style="overflow: auto">
+      <q-card
+        flat
+        bordered>
+        <q-card-section class="card-title">
+          {{ t('login.welcome1') }}
+        </q-card-section>
+        <q-separator />
+        <q-card-section v-if="!code">
+          <p class="text-body2">
+            {{ t('login.welcome2') }}
+          </p>
+          <q-form
+            class=""
+            style="text-align: center">
+            <q-input
+              v-model="emailAddress"
+              class="q-my-md"
+              outlined
+              type="email"
+              :label="t('login.emailAddressLabel')" />
+            <q-input
+              v-model="password"
+              class="q-my-md"
+              outlined
+              type="password"
+              :label="t('login.passwordLabel')">
+            </q-input>
+            <q-btn
+              id="login-button"
+              unelevated
+              color="primary"
+              text-color="onPrimary"
+              type="submit"
+              :loading="processing"
+              :label="t('login.loginLabel')"
+              :disable="processing || password === '' || emailAddress === ''"
+              @click="login" />
+          </q-form>
+          <p
+            v-if="invalidPassword"
+            class="text-body2 warning">
+            {{ t('login.invalidPassword') }}
+          </p>
+        </q-card-section>
+        <q-card-section v-else>
+          <p>
+            {{ t('login.enterCode1') }}
+            <span class="phonenumber">{{ obscurePhoneNumber() }}</span>
+            {{ t('login.enterCode2') }}
+          </p>
+          <span
+            href="#"
+            class="resend-link"
+            @click="sendCode()"
+            >{{ t('login.resend') }}</span
+          >
+          <q-form id="code-form">
+            <q-input
+              v-model="codeInput"
+              label="Code"
+              type="text"
+              autofocus />
+            <q-btn
+              id="code-button"
+              color="primary"
+              text-color="onPrimary"
+              :label="t('login.checkLabel')"
+              type="submit"
+              :loading="processing"
+              :disable="processing || codeInput === ''"
+              @click="checkCode" />
+          </q-form>
+          <p
+            v-if="invalidCode"
+            class="warning">
+            {{ t('login.invalidCode') }}
+          </p>
+        </q-card-section>
+      </q-card>
+    </div>
+  </q-page>
+</template>
+
+<script setup lang="ts">
+import {useQuasar} from 'quasar';
+import ACCEPTED_LOGINS from 'src/assets/acceptedLogins.json';
+import {MessageSchema} from 'src/boot/i18n';
+import {useUtilsInject} from 'src/composables/composables';
+import {defaultUser} from 'src/models/defaults';
+import {useStore} from 'src/stores/store';
+import {ref} from 'vue';
+import {useI18n} from 'vue-i18n';
+import {useRoute, useRouter} from 'vue-router';
+
+const $q = useQuasar();
+const {t} = useI18n<{message: MessageSchema}>();
+const router = useRouter();
+const route = useRoute();
+
+const store = useStore();
+
+const emailAddress = ref('');
+const password = ref('');
+const matchedUser = ref(defaultUser);
+const processing = ref(false);
+const invalidPassword = ref(false);
+const code = ref<string | null>(null);
+const codeInput = ref('');
+const invalidCode = ref(false);
+
+const {epdUtils} = useUtilsInject();
+
+function login(e: Event) {
+  e.preventDefault();
+  const match = ACCEPTED_LOGINS.find((login) => login.emailAddress === emailAddress.value);
+  if (match && match.password === password.value) {
+    matchedUser.value = match;
+    if (process.env.IS_2FA_ENABLED === 'TRUE') {
+      sendCode();
+    } else {
+      apply();
+    }
+  } else {
+    invalidPassword.value = true;
+  }
+}
+
+function apply() {
+  processing.value = true;
+  epdUtils
+    .useITI78({given: matchedUser.value.firstName, family: matchedUser.value.lastName})
+    .then((patientResources) => {
+      if (patientResources.length === 0) {
+        $q.notify({
+          message: t('common.error'),
+          caption: t('login.loginError'),
+          type: 'negative',
+          position: 'top-right'
+        });
+        console.error('No corresponding patient found on EPD Playground for ' + matchedUser.value.firstName + ' ' + matchedUser.value.lastName + '.');
+        processing.value = false;
+      } else {
+        store.$patch({
+          user: matchedUser.value,
+          userResource: patientResources[0]
+        });
+        router.push({path: route.redirectedFrom?.path ?? '/'});
+      }
+    })
+    .catch((error) => {
+      $q.notify({
+        message: t('common.error'),
+        caption: t('login.loginError'),
+        type: 'negative',
+        position: 'top-right'
+      });
+      console.error('Something went wrong logging in', error);
+      processing.value = false;
+    });
+}
+
+function sendCode() {
+  generateCode(4);
+  $q.notify({
+    message: t('login.messageTitle') + matchedUser.value.mobilePhoneNumber,
+    caption: t('login.messageText') + code.value,
+    position: 'top-right'
+  });
+}
+
+function generateCode(length: number) {
+  const randomNumber = Math.floor(Math.random() * Math.pow(10, length)).toString();
+  code.value = '0'.repeat(randomNumber.length - length) + randomNumber;
+}
+
+function checkCode(e: Event) {
+  e.preventDefault();
+  if (code.value === codeInput.value && matchedUser.value) {
+    apply();
+  } else {
+    invalidCode.value = true;
+  }
+}
+
+function obscurePhoneNumber(): string {
+  return (
+    matchedUser.value?.mobilePhoneNumber.substring(0, 2) +
+    '• ••• ' +
+    matchedUser.value?.mobilePhoneNumber.substring(matchedUser.value?.mobilePhoneNumber.length - 5, matchedUser.value?.mobilePhoneNumber.length)
+  );
+}
+</script>
+
+<style scoped lang="scss">
+#code-form > input {
+  width: 5em;
+  font-size: 2em;
+}
+.warning {
+  color: $warning;
+  text-align: center;
+  margin-top: 1.5em;
+}
+.phonenumber {
+  white-space: nowrap;
+  font-weight: bold;
+}
+.resend-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: $secondary;
+}
+.resend-link:hover {
+  text-decoration: none;
+  color: $primary;
+}
+</style>

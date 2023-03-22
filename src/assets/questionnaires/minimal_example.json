@@ -1,0 +1,16 @@
+{
+  "resourceType": "Questionnaire",
+  "status": "draft",
+  "item": [
+    {
+      "linkId": "Q1",
+      "type": "dateTime",
+      "required": true,
+      "initial": [
+        {
+          "valueDateTime": "2023-03-01T13:00:00+01:00"
+        }
+      ]
+    }
+  ]
+}
