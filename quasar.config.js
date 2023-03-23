@@ -61,7 +61,10 @@ module.exports = configure(function (ctx) {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
+      publicPath:
+        process.env.NODE_ENV === 'production'
+          ? '/Questionnaire/' // necessary if you serve app on GitLab pages, corresponds to repository name
+          : '/',
       // analyze: true,
       env: {
         FHIR_4_CONTENT_TYPE: 'application/fhir+json; fhirVersion=4.0',
