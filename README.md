@@ -117,5 +117,5 @@ This software is published under a [MIT License](LICENSE.txt).
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 1.0.2   | 2023-10-04 | Added license and upgraded dependencies     |
+| 1.0.1   | 2023-10-04 | Added license and upgraded dependencies     |
 | 1.0.0   | 2023-03-22 | Initial version uploaded to this repository |
