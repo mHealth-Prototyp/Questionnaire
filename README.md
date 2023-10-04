@@ -21,7 +21,8 @@ You might also be interested in the [health-professional oriented prototype app]
   - [2.5 About](#25-about)
 - [3 Install and run the app](#3-install-and-run-the-app)
 - [4 Submit issues](#4-submit-issues)
-- [5 Changelog](#5-changelog)
+- [5 License](#5-license)
+- [6 Changelog](#6-changelog)
 
 ## 1 About this prototype webapp
 
@@ -106,10 +107,14 @@ npm run build
 
 ## 4 Submit issues
 
-Go to the issue site of the repository to submit an issue: [on github.com](https://github.com/mHealth-Prototyp/Questionnaire/issues)
+Go to the issue site of the repository to submit an issue: TODO: future link[on github.com](https://github.com/mHealth-Prototyp/FHIR-Questionnaires/issues)
 
-## 5 Changelog
+## 5 License
+
+This software is published under a [MIT License](LICENSE.txt).
+
+## 6 Changelog
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 1.0.0   | 2023-03-22 | Initial version uploaded to this repository |
+| 1.0.0   | 2023-03-21 | Initial version uploaded to this repository |

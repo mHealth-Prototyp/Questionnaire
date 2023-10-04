@@ -48,36 +48,41 @@
           </p>
         </q-card-section>
         <q-card-section v-else>
-          <p>
+          <p class="text-body2">
             {{ t('login.enterCode1') }}
             <span class="phonenumber">{{ obscurePhoneNumber() }}</span>
             {{ t('login.enterCode2') }}
           </p>
           <span
             href="#"
-            class="resend-link"
+            class="text-body2 resend-link"
             @click="sendCode()"
             >{{ t('login.resend') }}</span
           >
-          <q-form id="code-form">
+          <q-form
+            id="code-form"
+            style="text-align: center">
             <q-input
               v-model="codeInput"
-              label="Code"
+              class="q-my-md"
+              outlined
               type="text"
+              :label="t('login.codeLabel')"
               autofocus />
             <q-btn
               id="code-button"
+              unelevated
               color="primary"
               text-color="onPrimary"
-              :label="t('login.checkLabel')"
               type="submit"
               :loading="processing"
+              :label="t('login.checkLabel')"
               :disable="processing || codeInput === ''"
               @click="checkCode" />
           </q-form>
           <p
             v-if="invalidCode"
-            class="warning">
+            class="text-body2 warning">
             {{ t('login.invalidCode') }}
           </p>
         </q-card-section>
