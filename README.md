@@ -111,7 +111,7 @@ Go to the issue site of the repository to submit an issue: [on github.com](https
 
 ## 5 License
 
-This software is published under a [MIT License](LICENSE.txt).
+This software is published under a [MIT License](LICENSE).
 
 ## 6 Changelog
 
