@@ -115,7 +115,8 @@ This software is published under a [MIT License](LICENSE).
 
 ## 6 Changelog
 
-| Version | Date       | Changes                                     |
-| ------- | ---------- | ------------------------------------------- |
-| 1.0.1   | 2023-10-04 | Added license and upgraded dependencies     |
-| 1.0.0   | 2023-03-22 | Initial version uploaded to this repository |
+| Version | Date       | Changes                                                                             |
+| ------- | ---------- | ----------------------------------------------------------------------------------- |
+| 1.0.2   | 2024-10-04 | Upgraded dependencies, use library for and fix a bug with loading translation files |
+| 1.0.1   | 2023-10-04 | Added license and upgraded dependencies                                             |
+| 1.0.0   | 2023-03-22 | Initial version uploaded to this repository                                         |
