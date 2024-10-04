@@ -1,4 +1,4 @@
-import{aL as Ge,d as Fn,h as $e,S as Qe,U as G,V as cn,W as $,j as an,X as Ze,Y as We,aM as Je,a5 as Ye,$ as xe,a0 as ve,F as ye,aA as Ke,aN as Xe,r as nt,a3 as et,a6 as tt,ag as ot}from"./index.b0611a79.js";import{Q as rt}from"./QPage.b2a287d8.js";import{_ as we}from"./plugin-vue_export-helper.21dcd24c.js";var st=`# How to build a FHIR-Questionnaire
+import{aL as Ge,d as Fn,h as $e,S as Qe,U as G,V as cn,W as $,j as an,X as Ze,Y as We,aM as Je,a5 as Ye,$ as xe,a0 as ve,F as ye,aA as Ke,aN as Xe,r as nt,a3 as et,a6 as tt,ag as ot}from"./index.52235235.js";import{Q as rt}from"./QPage.f751d244.js";import{_ as we}from"./plugin-vue_export-helper.21dcd24c.js";var st=`# How to build a FHIR-Questionnaire
 
 This guide aims to explain how to build a FHIR Questionnaire, and in particular how to use the extensions necessary to make full use of the \`@i4mi/fhir-questionnaire-renderer\` library.
 
