@@ -7,6 +7,7 @@ import {provide} from 'vue';
 import {EpdPlaygroundUtils, FhirUtils} from '@i4mi/mhealth-proto-components';
 import {utilsKey} from './services/keys';
 import {useStore} from './stores/store';
+import {defaultUserSettings} from './models/defaults';
 
 const store = useStore();
 
@@ -20,7 +21,7 @@ const env = {
   IS_2FA_ENABLED: process.env.IS_2FA_ENABLED
 };
 
-provide(utilsKey, {epdUtils: new EpdPlaygroundUtils(env, store.userSettings.OIDs), fhirUtils: new FhirUtils(env.BASE_URL)});
+provide(utilsKey, {epdUtils: new EpdPlaygroundUtils(env, store.userSettings.OIDs), fhirUtils: new FhirUtils(env.BASE_URL, defaultUserSettings.OIDs)});
 </script>
 
 <style lang="scss">
